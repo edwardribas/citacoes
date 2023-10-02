@@ -23,7 +23,8 @@
 }
 
 /* General */
-html, body {
+html,
+body {
   min-height: 100vh;
   font-size: 1rem;
   background-color: var(--background);
@@ -34,13 +35,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6.25rem 3.75rem;
-}
-
-@media (max-width: 600px) {
-  body {
-    padding: 2.9rem 3.75rem;
-  }
+  padding: 0px 301px 0px 100px;
 }
 
 button {
@@ -51,4 +46,111 @@ button {
 main {
   font-size: 2rem;
   width: 100%;
+}
+
+/* Button */
+.button {
+  padding: 12px 24px;
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 60px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  font-size: 32px;
+  outline: none;
+  background: var(--foreground);
+  justify-content: center;
+  align-items: center;
+  color: var(--background);
+  gap: 10px;
+
+}
+
+.button.outline {
+  display: inline-flex;
+  border: 1px solid var(--foreground);
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+/* Title */
+.title {
+  color: var(--foreground);
+  font-size: 40px;
+  font-weight: 400;
+}
+
+/* Typography */
+.typography {
+  font-size: 32px;
+  color: var(--muted-foreground);
+}
+
+.container {
+  max-width: 880px;
+  width: 100%;
+  animation: fadeIn .5s ease;
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.hidden {
+  animation: fadeOut .5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(30px);
+  }
+}
+
+/* Media Query */
+@media (max-width: 730px) {
+  .button {
+    font-size: 20px;
+  }
+
+  .typography {
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  body {
+    padding: 24px 32px;
+  }
 }
