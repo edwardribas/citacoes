@@ -1,6 +1,6 @@
 (() => {
   const main = document.querySelector("main");
-  let isQuoteLoading = false;
+  let isLoadingNewScreen = false;
 
   const createTitle = (text) => {
     const title = document.createElement("h1");
@@ -38,6 +38,9 @@
   };
 
   const loadNewScreen = ({ oldContainer, newContainer }) => {
+    if (isLoadingNewScreen) return;
+    isLoadingNewScreen = true
+
     oldContainer?.classList.add("hidden");
     clearTimeout(timeoutId);
 
@@ -45,14 +48,11 @@
       oldContainer && main.removeChild(oldContainer);
       main.appendChild(newContainer);
       newContainer.classList.add("container");
-      isQuoteLoading = false;
+      isLoadingNewScreen = false;
     }, 500);
   };
 
   const handleGenerateQuote = async () => {
-    if (isQuoteLoading) return;
-    isQuoteLoading = true;
-
     const oldContainer = document.querySelector(".container");
     const response = await fetch("https://api.quotable.io/random").then((e) =>
       e.json()
@@ -61,8 +61,8 @@
     const generateMoreBtn = createButton("Refletir mais", false);
     const loadHomeBtn = createButton("Voltar", true);
 
-    generateMoreBtn.onclick = () => handleGenerateQuote();
-    loadHomeBtn.onclick = () => loadNewScreen(generateHome());
+    generateMoreBtn.onclick = () => !isLoadingNewScreen && handleGenerateQuote();
+    loadHomeBtn.onclick = () => !isLoadingNewScreen && loadNewScreen(generateHome());
 
     const heading = createTextWrapper(response.content, `- ${response.author}`);
 
@@ -82,7 +82,7 @@
       "Sabia que tirar um tempinho para relaxar pode te tornar alguém bem mais produtivo? Aproveite esse tempinho para ver algumas frases relaxantes!"
     );
     const button = createButton("Refletir um pouco");
-    button.onclick = () => !isQuoteLoading && handleGenerateQuote();
+    button.onclick = () => !isLoadingNewScreen && handleGenerateQuote();
 
     const newContainer = createContainer();
     const oldContainer = document.querySelector(".container");
