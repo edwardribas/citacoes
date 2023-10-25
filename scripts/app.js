@@ -49,7 +49,7 @@
       main.appendChild(newContainer);
       newContainer.classList.add("container");
       isLoadingNewScreen = false;
-    }, 500);
+    }, 450);
   };
 
   const handleGenerateQuote = async () => {
